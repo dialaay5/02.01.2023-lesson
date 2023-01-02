@@ -13,5 +13,13 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dialaay5/02.01.2023-lesson.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dialaay5/02.01.2023-lesson/issues"
+  },
+  "homepage": "https://github.com/dialaay5/02.01.2023-lesson#readme"
 }
