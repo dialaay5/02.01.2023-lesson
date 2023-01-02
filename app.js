@@ -204,7 +204,7 @@ app.delete('/posts/:id', (req, resp) => {
 // PATCH -- UPDATE 
 app.patch('/posts/:id', (req, resp) => {
     console.log(req.params.id);
-    // actually delete ... later
+    // actually update ... later
     // response
     resp.writeHead(200)
     resp.end('Successfully updated patched')
