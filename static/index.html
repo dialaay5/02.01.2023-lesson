@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>HELLO EXPRESS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>GET</h1>
+    <button onclick="run_me()">FIRE AJAX GET ALL</button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>AGE</th>
+                <th>ADDRESS</th>
+                <th>SALARY</th>
+            </tr>
+        </thead>
+        <tbody id="data">
+        </tbody>
+    </table>
+    <hr />
+    <h1>INSERT</h1>
+    <p>NAME : <input type="text" id="txt_name"></p>
+    <p>AGE : <input type="number" id="txt_age"></p>
+    <p>ADDRESS : <input type="text" id="txt_address"></p>
+    <p>SALARY : <input type="number" id="txt_salary"></p>
+    <p><button onclick="fire_add()">INSERT</button></p>
+
+    <h1>UPDATE</h1>
+    <p>ID : <input type="number" id="id"></p>
+    <p>NAME : <input type="text" id="name"></p>
+    <p>AGE : <input type="number" id="age"></p>
+    <p>ADDRESS : <input type="text" id="address"></p>
+    <p>SALARY : <input type="number" id="salary"></p>
+    <p><button onclick="fire_update()">UPDATED</button></p>
+
+    <h1>DELETE</h1>
+    <p>ID : <input type="number" id="txtId"></p>
+    <p><button onclick="fire_delete()">DELETE</button></p>
+    <script>
+        //to get all
+        function run_me() {
+            fetch('/employee').then(response => response.json()).
+                then(json => {
+                    console.log(json.employees);
+                    let tb = ""
+                    json.employees.forEach(e => {
+                        tb += `<tr><td>${e.ID}</td>
+                        <td>${e.NAME}</td>
+                        <td>${e.AGE}</td>
+                        <td>${e.ADDRESS}</td>
+                        <td>${e.SALARY}</td></tr>`
+                    });
+                    document.getElementById('data').innerHTML = tb
+                })
+        }
+
+        function fire_add() {
+            fetch('/employee', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                },
+                // take from inputs 
+                body: JSON.stringify({
+                    NAME: `${$('#txt_name').val()}`,
+                    AGE: `${$('#txt_age').val()}`,
+                    ADDRESS: `${$('#txt_address').val()}`,
+                    SALARY: `${$('#txt_salary').val()}`
+                })
+            })
+                .then(response => response.json())
+                .then(json => console.log(json));
+
+
+        }
+        function fire_update(ID) {
+            ID = $('#id').val()
+            fetch(`/employee/${ID}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                },
+                // take from inputs 
+                body: JSON.stringify({
+                    NAME: `${$('#name').val()}`,
+                    AGE: `${$('#age').val()}`,
+                    ADDRESS: `${$('#address').val()}`,
+                    SALARY: `${$('#salary').val()}`
+                })
+            })
+                .then(response => response.json())
+                .then(json => console.log(json));
+
+
+        }
+        function fire_delete(id) {
+            id = $('#txtId').val()
+            fetch(`/employee/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                }
+            })
+                .then(response => response.json())
+                .then(json => console.log(json));
+        }            
+    </script>
+</body>
+
+</html>
