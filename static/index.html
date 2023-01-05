@@ -74,7 +74,6 @@
                     SALARY: `${$('#txt_salary').val()}`
                 })
             })
-                .then(response => response.json())
                 .then(json => console.log(json));
 
 
@@ -95,7 +94,6 @@
                     SALARY: `${$('#salary').val()}`
                 })
             })
-                .then(response => response.json())
                 .then(json => console.log(json));
 
 
@@ -109,7 +107,6 @@
                     'Content-type': 'application/json',
                 }
             })
-                .then(response => response.json())
                 .then(json => console.log(json));
         }            
     </script>
